@@ -32,5 +32,33 @@ class TestTextNode(unittest.TestCase):
         node = TextNode("This is a text node", TextNodeType.BOLD)
         self.assertNotEqual(node, "This is a string")
 
-if __name__ == "__main__":
-    unittest.main()
+    def test_text(self):
+        node = TextNode("This is a text node", TextNodeType.TEXT)
+        html_node = node.text_node_to_html_node()
+        self.assertEqual(html_node.tag, None)
+        self.assertEqual(html_node.value, "This is a text node")
+
+    def test_bold(self):
+        node = TextNode("This is a bold text node", TextNodeType.BOLD)
+        html_node = node.text_node_to_html_node()
+        self.assertEqual(html_node.tag, "b")
+        self.assertEqual(html_node.value, "This is a bold text node")
+
+    def test_italic(self):
+        node = TextNode("This is an italic text node", TextNodeType.ITALIC)
+        html_node = node.text_node_to_html_node()
+        self.assertEqual(html_node.tag, "i")
+        self.assertEqual(html_node.value, "This is an italic text node")
+
+    def test_code(self):
+        node = TextNode("This is a code text node", TextNodeType.CODE)
+        html_node = node.text_node_to_html_node()
+        self.assertEqual(html_node.tag, "code")
+        self.assertEqual(html_node.value, "This is a code text node")
+
+    def test_image(self):
+        node = TextNode("This is an image", TextNodeType.IMAGE, url="https://example.com/image.png")
+        html_node = node.text_node_to_html_node()
+        self.assertEqual(html_node.tag, "img")
+        self.assertEqual(html_node.value, "")
+        self.assertEqual(html_node.props, {"src": "https://example.com/image.png", "alt": "This is an image"})
