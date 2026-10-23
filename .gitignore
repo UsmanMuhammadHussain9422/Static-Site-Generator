@@ -32,3 +32,5 @@ Thumbs.db
 
 # Static site output (if your generator writes to a public/output folder)
 public/
+
+docs/future_features.md
